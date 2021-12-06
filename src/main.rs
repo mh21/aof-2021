@@ -2,6 +2,7 @@ extern crate clap;
 mod day_01;
 mod day_02;
 mod day_03;
+mod day_04;
 
 fn run(puzzle: &str) -> Option<String> {
     match puzzle {
@@ -11,6 +12,8 @@ fn run(puzzle: &str) -> Option<String> {
         "2/2" => Some(day_02::part_2("data/puzzle-02-input")),
         "3/1" => Some(day_03::part_1("data/puzzle-03-input")),
         "3/2" => Some(day_03::part_2("data/puzzle-03-input")),
+        "4/1" => Some(day_04::part_1("data/puzzle-04-input")),
+        "4/2" => Some(day_04::part_2("data/puzzle-04-input")),
         _ => {
             println!("Unknown puzzle");
             None
