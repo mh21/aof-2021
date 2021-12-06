@@ -5,12 +5,12 @@ mod day_03;
 
 fn run(puzzle: &str) -> Option<String> {
     match puzzle {
-        "1/1" => Some(day_01::part_1()),
-        "1/2" => Some(day_01::part_2()),
-        "2/1" => Some(day_02::part_1()),
-        "2/2" => Some(day_02::part_2()),
-        "3/1" => Some(day_03::part_1()),
-        "3/2" => Some(day_03::part_2()),
+        "1/1" => Some(day_01::part_1("data/puzzle-01-input")),
+        "1/2" => Some(day_01::part_2("data/puzzle-01-input")),
+        "2/1" => Some(day_02::part_1("data/puzzle-02-input")),
+        "2/2" => Some(day_02::part_2("data/puzzle-02-input")),
+        "3/1" => Some(day_03::part_1("data/puzzle-03-input")),
+        "3/2" => Some(day_03::part_2("data/puzzle-03-input")),
         _ => {
             println!("Unknown puzzle");
             None

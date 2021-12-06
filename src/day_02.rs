@@ -6,8 +6,7 @@ struct Movement {
     units: i32,
 }
 
-pub fn part_1() -> String {
-    let filename = "data/puzzle-02-input";
+pub fn part_1(filename: &str) -> String {
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let movements = contents.lines().map(|s| {
         let mut parts = s.split(' ');
@@ -31,8 +30,7 @@ pub fn part_1() -> String {
     (depth * horizontal).to_string()
 }
 
-pub fn part_2() -> String {
-    let filename = "data/puzzle-02-input";
+pub fn part_2(filename: &str) -> String {
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let movements = contents.lines().map(|s| {
         let mut parts = s.split(' ');
@@ -65,12 +63,22 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_part_1_example() {
+        assert_eq!(part_1("data/puzzle-02-input-example"), "150");
+    }
+
+    #[test]
     fn test_part_1() {
-        assert_eq!(part_1(), "1936494");
+        assert_eq!(part_1("data/puzzle-02-input"), "1936494");
+    }
+
+    #[test]
+    fn test_part_2_example() {
+        assert_eq!(part_2("data/puzzle-02-input-example"), "900");
     }
 
     #[test]
     fn test_part_2() {
-        assert_eq!(part_2(), "1997106066");
+        assert_eq!(part_2("data/puzzle-02-input"), "1997106066");
     }
 }

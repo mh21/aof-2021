@@ -1,8 +1,7 @@
 // https://adventofcode.com/2021/day/1
 use std::fs;
 
-pub fn part_1() -> String {
-    let filename = "data/puzzle-01-input";
+pub fn part_1(filename: &str) -> String {
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let lines = contents.lines();
     let mut first = true;
@@ -19,8 +18,7 @@ pub fn part_1() -> String {
     count.to_string()
 }
 
-pub fn part_2() -> String {
-    let filename = "data/puzzle-01-input";
+pub fn part_2(filename: &str) -> String {
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let lines: Vec<i32> = contents
         .lines()
@@ -45,12 +43,22 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_part_1_example() {
+        assert_eq!(part_1("data/puzzle-01-input-example"), "7");
+    }
+
+    #[test]
     fn test_part_1() {
-        assert_eq!(part_1(), "1711");
+        assert_eq!(part_1("data/puzzle-01-input"), "1711");
+    }
+
+    #[test]
+    fn test_part_2_example() {
+        assert_eq!(part_2("data/puzzle-01-input-example"), "5");
     }
 
     #[test]
     fn test_part_2() {
-        assert_eq!(part_2(), "1743");
+        assert_eq!(part_2("data/puzzle-01-input"), "1743");
     }
 }
