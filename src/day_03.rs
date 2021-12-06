@@ -32,8 +32,7 @@ fn filter(numbers: &[Vec<i32>], filter_fn: fn(usize, usize) -> bool) -> &Vec<i32
     filtered_numbers[0]
 }
 
-pub fn part_1() -> String {
-    let filename = "data/puzzle-03-input";
+pub fn part_1(filename: &str) -> String {
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let numbers: Vec<Vec<_>> = contents
         .lines()
@@ -54,8 +53,7 @@ pub fn part_1() -> String {
     (gamma * epsilon).to_string()
 }
 
-pub fn part_2() -> String {
-    let filename = "data/puzzle-03-input";
+pub fn part_2(filename: &str) -> String {
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let numbers: Vec<Vec<_>> = contents
         .lines()
@@ -74,12 +72,22 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_part_1_example() {
+        assert_eq!(part_1("data/puzzle-03-input-example"), "198");
+    }
+
+    #[test]
     fn test_part_1() {
-        assert_eq!(part_1(), "3633500");
+        assert_eq!(part_1("data/puzzle-03-input"), "3633500");
+    }
+
+    #[test]
+    fn test_part_2_example() {
+        assert_eq!(part_2("data/puzzle-03-input-example"), "230");
     }
 
     #[test]
     fn test_part_2() {
-        assert_eq!(part_2(), "4550283");
+        assert_eq!(part_2("data/puzzle-03-input"), "4550283");
     }
 }
