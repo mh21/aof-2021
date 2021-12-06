@@ -32,7 +32,29 @@ fn filter(numbers: &[Vec<i32>], filter_fn: fn(usize, usize) -> bool) -> &Vec<i32
     filtered_numbers[0]
 }
 
-fn main() {
+pub fn part_1() -> String {
+    let filename = "data/puzzle-03-input";
+    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
+    let numbers: Vec<Vec<_>> = contents
+        .lines()
+        .map(|s| s.chars().map(|c| c.to_digit(10).unwrap() as i32).collect())
+        .collect();
+    let number_count = numbers.len();
+    let measurements = numbers[0].len();
+    println!("Number of measurements: {}", measurements);
+    let gamma: i32 = (0..measurements)
+        .map(|i| numbers.iter().filter(|ms| ms[i] == 1).count()) // number of "1" bits
+        .map(|i| (i > number_count / 2) as i32) // most common bit as int
+        .enumerate()
+        .map(|(pos, i)| i * 2i32.pow((measurements - pos - 1) as u32))
+        .sum();
+    let epsilon = 2i32.pow(measurements as u32) - 1 - gamma;
+    println!("Gamma: {}", gamma);
+    println!("Epsilon: {}", epsilon);
+    (gamma * epsilon).to_string()
+}
+
+pub fn part_2() -> String {
     let filename = "data/puzzle-03-input";
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
     let numbers: Vec<Vec<_>> = contents
@@ -44,5 +66,20 @@ fn main() {
     let co2_scrubber = decimal(filter(&numbers, |c, s| c < (s + 1) / 2));
     println!("Oxygen: {}", oxygen);
     println!("CO2 scrubber: {}", co2_scrubber);
-    println!("Life support rating: {}", oxygen * co2_scrubber);
+    (oxygen * co2_scrubber).to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part_1() {
+        assert_eq!(part_1(), "3633500");
+    }
+
+    #[test]
+    fn test_part_2() {
+        assert_eq!(part_2(), "4550283");
+    }
 }
