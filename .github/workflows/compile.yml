@@ -1,5 +1,9 @@
 ---
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches: [main]
+
 name: CI
 jobs:
   build_and_check:
@@ -11,9 +15,17 @@ jobs:
           toolchain: stable
       - uses: actions-rs/cargo@v1
         with:
-          command: build
-          args: --release --all-features
+          command: fmt
+          args: --all -- --check
       - uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --all-features
