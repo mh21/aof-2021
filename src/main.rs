@@ -1,4 +1,6 @@
 extern crate clap;
+mod day_2020_01;
+mod day_2020_02;
 mod day_2021_01;
 mod day_2021_02;
 mod day_2021_03;
@@ -9,6 +11,10 @@ mod day_2021_07;
 
 fn run(puzzle: &str) -> Option<String> {
     match puzzle {
+        "2020/1/1" => Some(day_2020_01::part_1("data/puzzle-2020-01-input")),
+        "2020/1/2" => Some(day_2020_01::part_2("data/puzzle-2020-01-input")),
+        "2020/2/1" => Some(day_2020_02::part_1("data/puzzle-2020-02-input")),
+        "2020/2/2" => Some(day_2020_02::part_2("data/puzzle-2020-02-input")),
         "2021/1/1" => Some(day_2021_01::part_1("data/puzzle-2021-01-input")),
         "2021/1/2" => Some(day_2021_01::part_2("data/puzzle-2021-01-input")),
         "2021/2/1" => Some(day_2021_02::part_1("data/puzzle-2021-02-input")),
