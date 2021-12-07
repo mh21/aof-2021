@@ -1,4 +1,4 @@
-// https://adventofcode.com/2021/day/4
+// https://adventofcode.com/2021/day/5
 struct Diagram {
     size: i32,
     numbers: Vec<i32>,
