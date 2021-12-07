@@ -38,21 +38,21 @@ mod tests {
 
     #[test]
     fn test_part_1_example() {
-        assert_eq!(part_1("data/puzzle-06-input-example"), "5934");
+        assert_eq!(part_1("data/puzzle-2021-06-input-example"), "5934");
     }
 
     #[test]
     fn test_part_1() {
-        assert_eq!(part_1("data/puzzle-06-input"), "350605");
+        assert_eq!(part_1("data/puzzle-2021-06-input"), "350605");
     }
 
     #[test]
     fn test_part_2_example() {
-        assert_eq!(part_2("data/puzzle-06-input-example"), "26984457539");
+        assert_eq!(part_2("data/puzzle-2021-06-input-example"), "26984457539");
     }
 
     #[test]
     fn test_part_2() {
-        assert_eq!(part_2("data/puzzle-06-input"), "1592778185024");
+        assert_eq!(part_2("data/puzzle-2021-06-input"), "1592778185024");
     }
 }
