@@ -21,7 +21,7 @@ fn run(filename: &str, days: usize) -> String {
         *new_fishes.entry(6).or_default() += *new_fishes.entry(8).or_default();
         fishes = new_fishes;
     }
-    fishes.values().copied().sum::<usize>().to_string()
+    fishes.into_values().sum::<usize>().to_string()
 }
 
 pub fn part_1(filename: &str) -> String {
