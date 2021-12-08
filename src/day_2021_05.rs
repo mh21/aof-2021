@@ -34,9 +34,9 @@ impl Diagram {
     }
 }
 
-fn read_data(filename: &str) -> Vec<Vec<i32>> {
-    let contents = std::fs::read_to_string(filename).unwrap();
-    contents
+fn run(filename: &str, filter: fn(v: &Vec<i32>) -> bool) -> String {
+    let vents: Vec<_> = std::fs::read_to_string(filename)
+        .unwrap()
         .lines()
         .map(|l| {
             l.split(" -> ")
@@ -45,13 +45,7 @@ fn read_data(filename: &str) -> Vec<Vec<i32>> {
                 .map(|n| n.parse::<i32>().unwrap())
                 .collect()
         })
-        .collect()
-}
-
-pub fn part_1(filename: &str) -> String {
-    let vents: Vec<_> = read_data(filename)
-        .into_iter()
-        .filter(|v| (v[0] == v[2]) || v[1] == v[3])
+        .filter(filter)
         .collect();
     let mut diagram = Diagram::new(&vents);
     for vent in vents.iter() {
@@ -60,13 +54,12 @@ pub fn part_1(filename: &str) -> String {
     diagram.dangerous_areas().to_string()
 }
 
+pub fn part_1(filename: &str) -> String {
+    run(filename, |v| (v[0] == v[2]) || v[1] == v[3])
+}
+
 pub fn part_2(filename: &str) -> String {
-    let vents: Vec<_> = read_data(filename);
-    let mut diagram = Diagram::new(&vents);
-    for vent in vents.iter() {
-        diagram.record_vent(vent[0], vent[1], vent[2], vent[3]);
-    }
-    diagram.dangerous_areas().to_string()
+    run(filename, |_| true)
 }
 
 #[cfg(test)]
