@@ -3,9 +3,7 @@
 fn run(filename: &str, days: usize) -> String {
     let mut fishes = std::fs::read_to_string(filename)
         .unwrap()
-        .lines()
-        .next()
-        .unwrap()
+        .trim()
         .split(',')
         .map(|n| n.parse::<i32>().unwrap())
         .fold(
@@ -21,7 +19,7 @@ fn run(filename: &str, days: usize) -> String {
         *new_fishes.entry(6).or_default() += *new_fishes.entry(8).or_default();
         fishes = new_fishes;
     }
-    fishes.into_values().sum::<usize>().to_string()
+    fishes.values().sum::<usize>().to_string()
 }
 
 pub fn part_1(filename: &str) -> String {
