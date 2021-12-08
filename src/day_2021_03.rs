@@ -1,5 +1,4 @@
 // https://adventofcode.com/2021/day/3
-use std::fs;
 
 fn decimal(binary: &[i32]) -> i32 {
     return binary
@@ -32,12 +31,16 @@ fn filter(numbers: &[Vec<i32>], filter_fn: fn(usize, usize) -> bool) -> &Vec<i32
     filtered_numbers[0]
 }
 
-pub fn part_1(filename: &str) -> String {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let numbers: Vec<Vec<_>> = contents
+fn read(filename: &str) -> Vec<Vec<i32>> {
+    std::fs::read_to_string(filename)
+        .unwrap()
         .lines()
         .map(|s| s.chars().map(|c| c.to_digit(10).unwrap() as i32).collect())
-        .collect();
+        .collect()
+}
+
+pub fn part_1(filename: &str) -> String {
+    let numbers = read(filename);
     let number_count = numbers.len();
     let measurements = numbers[0].len();
     println!("Number of measurements: {}", measurements);
@@ -54,12 +57,7 @@ pub fn part_1(filename: &str) -> String {
 }
 
 pub fn part_2(filename: &str) -> String {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let numbers: Vec<Vec<_>> = contents
-        .lines()
-        .map(|s| s.chars().map(|c| c.to_digit(10).unwrap() as i32).collect())
-        .collect();
-
+    let numbers = read(filename);
     let oxygen = decimal(filter(&numbers, |c, s| c >= (s + 1) / 2));
     let co2_scrubber = decimal(filter(&numbers, |c, s| c < (s + 1) / 2));
     println!("Oxygen: {}", oxygen);

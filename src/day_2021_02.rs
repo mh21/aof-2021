@@ -1,23 +1,27 @@
 // https://adventofcode.com/2021/day/2
-use std::fs;
-
 struct Movement {
     direction: String,
     units: i32,
 }
 
+fn read(filename: &str) -> Vec<Movement> {
+    std::fs::read_to_string(filename)
+        .unwrap()
+        .lines()
+        .map(|s| {
+            let (direction, units) = s.split_once(' ').unwrap();
+            Movement {
+                direction: direction.to_string(),
+                units: units.parse::<i32>().unwrap(),
+            }
+        })
+        .collect()
+}
+
 pub fn part_1(filename: &str) -> String {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let movements = contents.lines().map(|s| {
-        let mut parts = s.split(' ');
-        Movement {
-            direction: parts.next().unwrap().to_string(),
-            units: parts.next().unwrap().parse::<i32>().unwrap(),
-        }
-    });
     let mut horizontal = 0;
     let mut depth = 0;
-    for movement in movements {
+    for movement in read(filename) {
         match movement.direction.as_str() {
             "down" => depth += movement.units,
             "up" => depth -= movement.units,
@@ -31,18 +35,10 @@ pub fn part_1(filename: &str) -> String {
 }
 
 pub fn part_2(filename: &str) -> String {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let movements = contents.lines().map(|s| {
-        let mut parts = s.split(' ');
-        Movement {
-            direction: parts.next().unwrap().to_string(),
-            units: parts.next().unwrap().parse::<i32>().unwrap(),
-        }
-    });
     let mut horizontal = 0;
     let mut depth = 0;
     let mut aim = 0;
-    for movement in movements {
+    for movement in read(filename) {
         match movement.direction.as_str() {
             "down" => aim += movement.units,
             "up" => aim -= movement.units,

@@ -1,41 +1,27 @@
 // https://adventofcode.com/2021/day/1
 use std::fs;
 
+fn read(filename: &str) -> Vec<i32> {
+    fs::read_to_string(filename)
+        .unwrap()
+        .lines()
+        .map(|s| s.parse().unwrap())
+        .collect()
+}
 pub fn part_1(filename: &str) -> String {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let lines = contents.lines();
-    let mut first = true;
-    let mut count = 0;
-    let mut last = 0;
-    for line in lines {
-        let next = line.parse::<i32>().unwrap();
-        if !first && next > last {
-            count += 1;
-        }
-        last = next;
-        first = false;
-    }
-    count.to_string()
+    read(filename)
+        .windows(2)
+        .filter(|n| n[1] > n[0])
+        .count()
+        .to_string()
 }
 
 pub fn part_2(filename: &str) -> String {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let lines: Vec<i32> = contents
-        .lines()
-        .map(|s| s.parse::<i32>().unwrap())
-        .collect();
-    let mut first = true;
-    let mut count = 0;
-    let mut last = 0;
-    for window in lines.windows(3) {
-        let next: i32 = window.iter().sum();
-        if !first && next > last {
-            count += 1;
-        }
-        last = next;
-        first = false;
-    }
-    count.to_string()
+    read(filename)
+        .windows(4)
+        .filter(|n| n[1..4].iter().sum::<i32>() > n[0..3].iter().sum::<i32>())
+        .count()
+        .to_string()
 }
 
 #[cfg(test)]
