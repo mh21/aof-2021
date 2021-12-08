@@ -1,6 +1,5 @@
 // https://adventofcode.com/2020/day/2
 
-#[derive(Debug)]
 struct Password {
     min: usize,
     max: usize,
@@ -20,37 +19,35 @@ impl Password {
     }
 
     pub fn is_valid_part_1(&self) -> bool {
-        (self.min..=self.max).contains(&self.password.chars().filter(|c| *c == self.letter).count())
+        (self.min..=self.max).contains(&self.password.chars().filter(|&c| c == self.letter).count())
     }
 
     pub fn is_valid_part_2(&self) -> bool {
         self.password
             .chars()
             .enumerate()
-            .filter(|(i, c)| (*i + 1 == self.min || *i + 1 == self.max) && *c == self.letter)
+            .filter(|&(i, c)| (i + 1 == self.min || i + 1 == self.max) && c == self.letter)
             .count()
             == 1
     }
 }
 
-pub fn part_1(filename: &str) -> String {
+fn run(filename: &str, filter: fn(&Password) -> bool) -> String {
     std::fs::read_to_string(filename)
         .unwrap()
         .lines()
         .map(Password::new)
-        .filter(|p| p.is_valid_part_1())
+        .filter(filter)
         .count()
         .to_string()
 }
 
+pub fn part_1(filename: &str) -> String {
+    run(filename, Password::is_valid_part_1)
+}
+
 pub fn part_2(filename: &str) -> String {
-    std::fs::read_to_string(filename)
-        .unwrap()
-        .lines()
-        .map(Password::new)
-        .filter(|p| p.is_valid_part_2())
-        .count()
-        .to_string()
+    run(filename, Password::is_valid_part_2)
 }
 
 #[cfg(test)]
