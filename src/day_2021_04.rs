@@ -1,5 +1,4 @@
 // https://adventofcode.com/2021/day/4
-use std::fs;
 
 struct Board {
     size: usize,
@@ -35,7 +34,7 @@ impl Board {
 }
 
 fn read_data(filename: &str) -> (Vec<i32>, Vec<Board>) {
-    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
+    let contents = std::fs::read_to_string(filename).unwrap();
     let mut lines = contents.lines();
     let drawn_numbers: Vec<i32> = lines
         .next()
