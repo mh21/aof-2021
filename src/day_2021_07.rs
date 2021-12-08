@@ -1,25 +1,18 @@
 // https://adventofcode.com/2021/day/7
 
-pub fn run(filename: &str, map_fuel: fn(i32) -> i32) -> String {
-    let crabs: Vec<_> = std::fs::read_to_string(filename)
+pub fn run(filename: &str, map: fn(i32) -> i32) -> String {
+    let crabs: Vec<i32> = std::fs::read_to_string(filename)
         .unwrap()
-        .lines()
-        .next()
-        .unwrap()
+        .trim()
         .split(',')
-        .map(|n| n.parse::<i32>().unwrap())
+        .map(|n| n.parse().unwrap())
         .collect();
     let min = *crabs.iter().min().unwrap();
     let max = *crabs.iter().max().unwrap();
-    let mut min_pos = 0;
-    let mut min_fuel = 0;
-    for pos in min..=max {
-        let fuel = crabs.iter().map(|n| map_fuel((n - pos).abs())).sum();
-        if pos == min || fuel < min_fuel {
-            min_pos = pos;
-            min_fuel = fuel;
-        }
-    }
+    let (min_pos, min_fuel) = (min..=max)
+        .map(|p| (p, crabs.iter().map(|n| map((n - p).abs())).sum::<i32>()))
+        .min_by_key(|(_, fuel)| *fuel)
+        .unwrap();
     println!("Minimum position: {}", min_pos);
     min_fuel.to_string()
 }
