@@ -10,6 +10,7 @@ mod day_2021_06;
 mod day_2021_07;
 mod day_2021_08;
 mod day_2021_09;
+mod day_2021_10;
 
 fn run(puzzle: &str) -> Option<String> {
     match puzzle {
@@ -35,6 +36,8 @@ fn run(puzzle: &str) -> Option<String> {
         "2021/8/2" => Some(day_2021_08::part_2("data/puzzle-2021-08-input")),
         "2021/9/1" => Some(day_2021_09::part_1(day_2021_09::DATA)),
         "2021/9/2" => Some(day_2021_09::part_2(day_2021_09::DATA)),
+        "2021/10/1" => Some(day_2021_10::part_1(day_2021_10::DATA)),
+        "2021/10/2" => Some(day_2021_10::part_2(day_2021_10::DATA)),
         _ => {
             println!("Unknown puzzle");
             None
